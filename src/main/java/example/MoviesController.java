@@ -4,11 +4,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class MoviesController {
 
     @RequestMapping(value="/movies", method = RequestMethod.GET)
-    public Movie[] movies() {
+    public Movie[] movies(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+
         return new Movie[]{
                 new Movie(0, "Episode I – The Phantom Menace (1999)"),
                 new Movie(1, "Star Wars II – Attack of the Clones (2002)"),
